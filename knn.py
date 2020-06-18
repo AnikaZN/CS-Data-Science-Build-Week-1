@@ -40,8 +40,10 @@ class K_Nearest_Neighbors():
         for row in top_x:
             classification = row[2]
             array.append(classification)
-            object = stats.mode(array)
-            mode = object.mode[0]
+
+        object = stats.mode(array)
+        mode = object.mode[0]
+
         return mode
 
 
