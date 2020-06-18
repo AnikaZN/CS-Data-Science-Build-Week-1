@@ -65,12 +65,13 @@ class K_Nearest_Neighbors():
 X = [[-1, -1], [-2, -1], [-3, -2], [1, 1], [2, 1], [3, 2]]
 y =  [0, 0, 0, 1, 1, 1]
 
-point1 = [-2, -2]
-point2 = [3, 2]
+point1 = [-2, -2] #should be class 0
+point2 = [3, 2] # should be class 1
 
 
 if __name__ == '__main__':
     model = K_Nearest_Neighbors(3)
     model.fit(X, y)
-    print(model.predict(X, point1))
+
     print(model.predict(X, point2))
+    print(model.predict(X, point1))
