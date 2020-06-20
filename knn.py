@@ -16,11 +16,12 @@ class K_Nearest_Neighbors():
         """
         Helper function to calculate Euclidean distance
         """
-        a = vectorA[0] - vectorB[0]
-        b = vectorA[1] - vectorB[1]
-        a2 = a ** 2
-        b2 = b ** 2
-        distance = np.sqrt(a2 + b2)
+        squared = []
+        for x in range(len(vectorA)):
+            n = vectorA[x] - vectorB[x]
+            n2 = n ** 2
+            squared.append(n2)
+        distance = np.sqrt(sum(squared))
         return distance
 
     def fit(self, X, y):
@@ -78,7 +79,7 @@ if __name__ == '__main__':
     print(model.predict(X, [-2, -2, 2, 2]))  # Class 0
 
     print('(1, 5, 5, 1) is class:')
-    print(model.predict(X, [1, 5, 5, 1]))  # Class 0
+    print(model.predict(X, [1, 5, 5, 1]))  # Class 1
 
     print('(10, 10, 10, 10) is class:')
     print(model.predict(X, [10, 10, 10, 10]))  # Class 2
