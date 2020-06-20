@@ -1,7 +1,14 @@
 import numpy as np
 from scipy import stats
+from sklearn import datasets
+
 
 class K_Nearest_Neighbors():
+    """
+    Determine the classifcation of a given point based on existing data
+    points
+    Takes in number of neighbors to be calculated with
+    """
     def __init__(self, k):
         self.k = k
 
@@ -25,6 +32,14 @@ class K_Nearest_Neighbors():
             X[i].append(y[i])
         return X
 
+    def plot(self, X, target):
+        """
+        Plotting
+        Two-dimensional plots ONLY
+        """
+        # TODO
+        pass
+
     def predict(self, X, target):
         """
         Target is a tuple
@@ -33,45 +48,37 @@ class K_Nearest_Neighbors():
             distance = self.euclidean_distance(target, point)
             point.append(distance)
 
-        sorted_data = sorted(X, key=lambda data: data[3])
+        sorted_data = sorted(X, key=lambda data: data[-1])
         top_x = sorted_data[0:self.k]
 
         array = []
         for row in top_x:
-            classification = row[2]
+            classification = row[-2]
             array.append(classification)
 
         object = stats.mode(array)
         mode = object.mode[0]
 
+        for point in X:
+            del point[-1]
+
         return mode
 
 
-# X = [
-#     [1.465489372,2.362125076],
-#     [3.396561688,4.400293529],
-#     [1.38807019,1.850220317],
-#     [3.06407232,3.005305973],
-#     [7.627531214,2.759262235],
-#     [5.332441248,2.088626775],
-#     [6.922596716,1.77106367],
-#     [8.675418651,-0.242068655],
-#     [7.673756466,3.508563011]
-#     ]
-# y = [0, 0, 0, 0, 1, 1, 1, 1, 1]
-# point = [2.7810836,2.550537003]
-
-
-X = [[-1, -1], [-2, -1], [-3, -2], [1, 1], [2, 1], [3, 2]]
-y =  [0, 0, 0, 1, 1, 1]
-
-point1 = [-2, -2] #should be class 0
-point2 = [3, 2] # should be class 1
-
-
 if __name__ == '__main__':
+    iris = datasets.load_iris()
+    X = iris.data.tolist()
+    y = iris.target.tolist()
+
     model = K_Nearest_Neighbors(3)
     model.fit(X, y)
 
-    print(model.predict(X, point2))
-    print(model.predict(X, point1))
+    # Make predictions
+    print('(-2, -2, 2, 2) is class:')
+    print(model.predict(X, [-2, -2, 2, 2]))  # Class 0
+
+    print('(1, 5, 5, 1) is class:')
+    print(model.predict(X, [1, 5, 5, 1]))  # Class 0
+
+    print('(10, 10, 10, 10) is class:')
+    print(model.predict(X, [10, 10, 10, 10]))  # Class 2
