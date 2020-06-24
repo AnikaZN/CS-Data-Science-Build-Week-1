@@ -26,10 +26,11 @@ class K_Nearest_Neighbors():
 
     def fit(self, X, y):
         """
-        X is a list of lists containing x and y values
+        X is a list of lists containing data values
         y is a list of classifications
         """
         for i in range(len(X)):
+            # Add the classification to the list with data values
             X[i].append(y[i])
         return X
 
@@ -45,21 +46,28 @@ class K_Nearest_Neighbors():
         """
         Target is a tuple
         """
+        # Calculate Euclidean distance between target and each other point in
+        # our dataset, append to list (final item)
         for point in X:
             distance = self.euclidean_distance(target, point)
             point.append(distance)
 
+        # Sort based on distances
         sorted_data = sorted(X, key=lambda data: data[-1])
+        # Isolate the closest k points
         top_x = sorted_data[0:self.k]
 
         array = []
         for row in top_x:
+            # Determine the classifications of the top k points
             classification = row[-2]
             array.append(classification)
 
         object = stats.mode(array)
+        # Get the mode of the classifications
         mode = object.mode[0]
 
+        # Remove the distances so we can predict other targets
         for point in X:
             del point[-1]
 
