@@ -1,5 +1,6 @@
 import numpy as np
 from scipy import stats
+import seaborn as sns
 
 #Euclidean Distance = sqrt( ((q1 - p1)^2) + ((q2 - p2)^2) + ... + ((qn - pn)^2) )
 # ⟨u1−v1,u2−v2⟩
@@ -42,7 +43,6 @@ X = [
     ]
 y = [0, 0, 0, 0, 1, 1, 1, 1, 1]
 point = [2.7810836,2.550537003] #0
-
 
 for row in dataset:
     # predict
